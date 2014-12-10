@@ -1,0 +1,49 @@
+---
+- name: Install Mysql package
+  yum: name={{ item }} state=installed
+  with_items:
+   - mysql-server
+   - MySQL-python
+   - libselinux-python
+   - libsemanage-python
+
+#- name: Configure SELinux to start mysql on any port
+#  seboolean: name=mysql_connect_any state=true persistent=yes
+#  when: sestatus.rc != 0
+
+- name: Install the mysql remote repo
+  yum: name=http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm state=present
+
+- name: Install the mysql rpm from a remote repo
+  yum: name=mysql-community-server state=present
+  register: mysql_installed
+
+- name: Start and enable the mysql service
+  service: name=mysqld state=restarted enabled=yes
+  when: mysql_installed|changed
+
+- name: Wait for the service up
+  wait_for: port=3306 delay=30
+  when: mysql_installed|changed
+
+- name: Update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost
+  when: mysql_installed|changed
+
+- name: Create alfresco database
+  mysql_db: login_user=root login_password={{ mysql_root_db_pass }} name={{ alfresco_db_name }} state=present
+  when: mysql_installed|changed
+
+- name: Create alfresco_user / roles
+  mysql_user: login_user=root login_password={{ mysql_root_db_pass }} name={{ alfresco_db_user }} password={{ alfresco_db_password}} priv={{ alfresco_db_name }}.*:ALL state=present host=localhost
+  when: mysql_installed|changed
+
+- name: insert iptables rule
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ mysql_port }}"
+              insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
+  notify: restart iptables
+

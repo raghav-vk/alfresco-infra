@@ -1,0 +1,7 @@
+---
+# file: appservers-analytics.yml
+- hosts: appservers-analytics
+  roles:
+    - common
+    - webtier
+    - apptier

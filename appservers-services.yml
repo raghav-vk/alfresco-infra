@@ -1,0 +1,7 @@
+---
+# file: appservers-monitoring.yml
+- hosts: appservers-monitoring
+  roles:
+    - common
+    - webtier
+    - apptier

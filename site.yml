@@ -1,0 +1,8 @@
+---
+# file: site.yml
+- include: webservers.yml
+- include: appservers.yml
+- include: dbservers.yml
+#- include: appservers-analytics.yml
+#- include: appservers-monitoring.yml
+#- include: appservers-services.yml

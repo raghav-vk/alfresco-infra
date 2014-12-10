@@ -1,0 +1,13 @@
+---
+# file: appservers.yml
+- hosts: appservers
+  roles:
+      - common
+      - { role: openjdk, when "java_type == 'open'"}
+      - { role: java, when: "java_type == 'sun'"}
+#      - tomcat
+      - { role: mysql, when: "alfresco_db == 'mysql'"}
+      - { role: postgresql, when: "alfresco_db == 'postgresql'"}
+      - tools
+      - alfresco
+      - { role: solr, when: "alfresco_indexing == 'solr'" }
