@@ -1,12 +1,12 @@
 ---
 # java
-java_type: 'java'
-java_version: '8u25'
-java_build: 'b01'
+java_type: 'sun'
+java_version: '7u71'
+java_build: 'b14'
 
 # tomcat
 tomcat_version: '7.0.57'
-java_opts: '-Xms512m -Xmx1000m -Xss768k -XX:MaxPermSize=256m -XX:NewSize=256m -server'
+java_opts: '-Xms1G -Xmx2G -Xss1024k -XX:MaxPermSize=256m -Dcom.sun.management.jmxremote'
 
 # db
 alfresco_db: 'mysql'
@@ -32,7 +32,8 @@ alfresco_build: '00311'
 alfresco_version: '5.0.0'
 alfresco_user: 'alfresco'
 alfresco_group: 'alfresco'
-alfresco_user_home: '/opt/alfresco'
+alfresco_user_home: '/home/alfresco'
+alfresco_home: '/opt/alfresco'
 alfresco_data_home: '/opt/alfresco'
 alfresco_log_home: '/var/log/alfresco'
 alfresco_uid: '501'

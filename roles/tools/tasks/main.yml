@@ -5,11 +5,13 @@
 - name: add rpmforge for swftools
   yum: name=http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm state=present
 
+- name: add sourceforge for wkhtmltopdf
+  yum: name=http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.1/wkhtmltox-0.12.1_linux-centos6-amd64.rpm state=present
+
 - name: add tools package
   yum: state=latest name={{ item }}
   with_items:
-    - ImageMagick
     - ffmpeg
-    - libreoffice
-    - libreoffice-headless
+    - wkhtmltox
     - swftools
+

@@ -1,13 +1,15 @@
 ---
 # file: appservers.yml
 - hosts: appservers
+  remote_user: rkarna
+  sudo: yes
   roles:
       - common
-      - { role: openjdk, when "java_type == 'open'"}
+#      - { role: openjdk, when "java_type == 'open'"}
       - { role: java, when: "java_type == 'sun'"}
 #      - tomcat
-      - { role: mysql, when: "alfresco_db == 'mysql'"}
-      - { role: postgresql, when: "alfresco_db == 'postgresql'"}
+#      - { role: mysql, when: "alfresco_db == 'mysql'"}
+#      - { role: postgresql, when: "alfresco_db == 'postgresql'"}
       - tools
       - alfresco
-      - { role: solr, when: "alfresco_indexing == 'solr'" }
+#      - { role: solr, when: "alfresco_indexing == 'solr'" }

@@ -23,10 +23,6 @@
 
 # appservers in all types
 [appservers:children]
-appservers
-appservers-analytics
-appservers-monitoring
-appservers-services
 
 # dbservers in all geos
 [dbservers:children]
