@@ -8,12 +8,8 @@
   shell: 'tar xzf /tmp/apache-tomcat-{{ tomcat_version }}.tar.gz -C /opt/'
   when: tomcat_downloaded|changed
 
-- name: Create tomcat symlink
-  file: path={{ alfresco_user_home }}/tomcat state=link src=/opt/apache-tomcat-{{ tomcat_version }}
-  when: tomcat_downloaded|changed
-
 - name: Set shared loader
-  lineinfile: dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/catalina.properties regexp="^shared.loader=" line="shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar"
+  lineinfile: dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/catalina.properties regexp="^shared.loader=" line="shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar" mode=0755
 
 - name: Set URIEncoding
   lineinfile: dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/server.xml insertafter="^\s{4}<Connector port=\"8080\"" line="               URIEncoding=\"UTF-8\""

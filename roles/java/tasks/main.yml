@@ -8,16 +8,30 @@
 - name: Install JDK RPM package
   yum: name=/tmp/jdk-{{ java_version }}-linux-x{{ ansible_userspace_bits }}.rpm state=present
   register: jdk_installed
-#  when: jdk_downloaded|changed
+  when: jdk_downloaded|changed
 
 - name: Set java link by latest
   command: alternatives --install /usr/bin/java java /usr/java/latest/bin/java 200000
-#  when: jdk_installed|changed
+  when: jdk_installed|changed
 
 - name: Set jar link by latest
   command: alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000
-#  when: jdk_installed|changed
+  when: jdk_installed|changed
 
 - name: Update profile JDK / JRE
   copy: src=java_env.sh dest=/etc/profile.d/java_env.sh
-#  when: jdk_installed|changed
+  when: jdk_installed|changed
+
+- name: Download JCE Policy version
+  shell: 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
+    "http://download.oracle.com/otn-pub/java/jce/{{ jce_policy_ver }}/jce_policy-{{ jce_policy_ver }}.zip"
+    -O /tmp/jce_policy-{{ jce_policy_ver }}.zip creates=/tmp/jce_policy-{{ jce_policy_ver }}.zip'
+  register: jce_downloaded
+
+- name: Install JCE Policy version
+  shell: 'unzip /tmp/jce_policy-{{ jce_policy_ver }}.zip -d .'
+  when: jce_downloaded|changed
+
+- name: Copy JCE Policy files
+  shell: 'cp UnlimitedJCEPolicyJDK{{ jce_policy_ver }}/*.jar /usr/java/latest/jre/lib/security/'
+  when: jce_downloaded|changed

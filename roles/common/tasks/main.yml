@@ -14,6 +14,7 @@
     - vim
     - byobu
     - htop
+  when: epel_installed|changed
 
 - name: Install ntp
   yum: name=ntp state=present

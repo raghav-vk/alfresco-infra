@@ -13,9 +13,9 @@
 10.128.108.12	#dpp-dev-ls-1	
 
 [appservers-services]
-10.128.108.26	#dpp-dev-tools-1	
+10.128.108.13	#dpp-dev-tools-1	
 
-[dbservers]
+[dataservers]
 10.128.108.18	#dpp-dev-db
 
 # webservers in all geos
@@ -24,8 +24,8 @@
 # appservers in all types
 [appservers:children]
 
-# dbservers in all geos
-[dbservers:children]
+# dataservers in all geos
+[dataservers:children]
 
 # everything in the atlanta geo
 [atlanta:children]

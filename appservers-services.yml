@@ -1,7 +1,10 @@
 ---
 # file: appservers-monitoring.yml
-- hosts: appservers-monitoring
+- hosts: appservers-services
+  remote_user: rkarna
+  sudo: yes
   roles:
-    - common
-    - webtier
-    - apptier
+      - common
+      - { role: java, when: "java_type == 'sun'"}
+      - tomcat
+

@@ -26,8 +26,8 @@
 
 - name: Install alfresco unattended
 #  sudo: yes
-  sudo_user: '{{ alfresco_user }}'
-  shell: '/tmp/alfresco-enterprise-5.0-installer-linux-x64.bin --prefix {{ alfresco_home }} --unattendedmodeui none --mode unattended --debuglevel 0 --enable-components libreofficecomponent,alfrescosolr4 --disable-components postgres,alfrescogoogledocs --jdbc_url "jdbc:mysql://10.128.108.18:3306/dbname?useUnicode=yes&amp;characterEncoding=UTF-8" --jdbc_driver org.gjt.mm.mysql.Driver --jdbc_database {{alfresco_db_name}} --jdbc_username {{alfresco_db_user}} --jdbc_password {{alfresco_db_password}} --alfresco_ftp_port 2121 --alfresco_admin_password admin --tomcat_server_directory {{alfresco_home}}/tomcat --tomcat_server_domain 127.0.01 --tomcat_server_port 8080 --tomcat_server_shutdown_port 8005 --tomcat_server_ssl_port 8443 --tomcat_server_ajp_port 8009 --alfresco_ftp_port 21 --alfresco_rmi_port 50500 --baseunixservice_install_as_service 1 --baseunixservice_script_name alfresco --libreoffice_port 8100 --alfrescocustomstack_services_startup demand' 
+  sudo_user: root
+  shell: '/tmp/alfresco-enterprise-5.0-installer-linux-x64.bin --prefix {{ alfresco_home }} --unattendedmodeui none --mode unattended --debuglevel 0 --enable-components libreofficecomponent,alfrescosolr4 --disable-components postgres,alfrescogoogledocs --jdbc_url "jdbc:mysql://10.128.108.18:3306/dbname?useUnicode=yes&amp;characterEncoding=UTF-8" --jdbc_driver org.gjt.mm.mysql.Driver --jdbc_database {{alfresco_db_name}} --jdbc_username {{alfresco_db_user}} --jdbc_password {{alfresco_db_password}} --alfresco_admin_password admin --tomcat_server_directory {{alfresco_home}}/tomcat --tomcat_server_domain 127.0.01 --tomcat_server_port 8080 --tomcat_server_shutdown_port 8005 --tomcat_server_ssl_port 8443 --tomcat_server_ajp_port 8009 --alfresco_ftp_port 21 --alfresco_rmi_port 50500 --baseunixservice_install_as_service 1 --baseunixservice_script_name alfresco --libreoffice_port 8100 --alfrescocustomstack_services_startup demand' 
   register: alfresco_installed
 #  when: alfresco_downloaded|changed
 
@@ -64,3 +64,11 @@
 
 #- name: Cleanup alfresco unzipped
 #  shell: 'rm -rf /tmp/alfresco-enterprise-5.0-installer-linux-x64.bin' 
+
+- name: insert iptables rule
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ tomcat_server_port }}"
+              insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport {{ tomcat_server_port }} -j  ACCEPT"
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ tomcat_server_ssl__port }}"
+              insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport {{ tomcat_server_ssl_port }} -j  ACCEPT"
+  notify: restart iptables
+
