@@ -3,5 +3,7 @@
 - hosts: appservers-monitoring
   roles:
     - common
-    - webtier
-    - apptier
+    - java
+    - { role: geerlingguy.kibana }
+    - { role: geerlingguy.logstash }
+

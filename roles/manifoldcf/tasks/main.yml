@@ -1,0 +1,13 @@
+---
+- name: Download and Install Apache Manifold CF
+  shell: 'wget "http://mirror.tcpdiag.net/apache/manifoldcf/apache-manifoldcf-{{ manifoldcf_version }}/apache-manifoldcf-{{ manifoldcf_version }}-bin.tar.gz" -O /tmp/apache-manifoldcf-{{ manifoldcf_version }}-bin.tar.gz'
+  register: manifoldcf_downloaded
+
+- name: Extract Apache Manifold CF
+  shell: 'tar xzf /tmp/apache-manifoldcf-{{ manifoldcf_version }}-bin.tar.gz -C /opt/apache-manifoldcf-{{ manifoldcf_version }}'
+  register: manifoldcf_downloaded|changed
+
+- name: start apache manifold CF
+  shell: cd /opt/apache-manifoldcf-'{{ manifoldcf_version}}'/example; sudo nohup ./start.sh mode=0755
+  register: manifoldcf_downloaded|changed
+

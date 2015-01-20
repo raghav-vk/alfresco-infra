@@ -1,0 +1,34 @@
+# file: dev
+
+[webservers]
+localhost	#dpp-dev-web	
+
+[appservers]
+localhost	#dpp-dev-rep-1	 
+
+[appservers-analytics]
+localhost	#dpp-dev-elastic
+
+[appservers-monitoring]
+localhost	#dpp-dev-ls-1	
+
+[appservers-services]
+localhost	#dpp-dev-tools-1	
+
+[dataservers]
+#dpp-dev-db
+
+# webservers in all geos
+[webservers:children]
+
+# appservers in all types
+[appservers:children]
+
+# dataservers in all geos
+[dataservers:children]
+
+# everything in the atlanta geo
+[atlanta:children]
+
+# everything in the boston geo
+[boston:children]

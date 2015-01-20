@@ -20,8 +20,8 @@ java_opts: '-Xms1G -Xmx2G -Xss1024k -XX:MaxPermSize=256m -Dcom.sun.management.jm
 
 # db
 alfresco_db: 'mysql'
-alfresco_db_name: 'alfresco'
-alfresco_db_user: 'alfresco'
+alfresco_db_name: 'root'
+alfresco_db_user: 'root'
 alfresco_db_password: 'alfresco'
 
 ## mysql
@@ -40,9 +40,8 @@ imagemagick_version: '6.5.4.7'
 # alfresco
 alfresco_build: '00311'
 alfresco_version: '5.0.0'
-alfresco_user: 'alfresco'
-alfresco_group: 'alfresco'
-alfresco_user_home: '/home/alfresco'
+alfresco_user: 'root'
+alfresco_group: 'root'
 alfresco_home: '/opt/alfresco'
 alfresco_data_home: '/opt/alfresco'
 alfresco_log_home: '/var/log/alfresco'
@@ -57,3 +56,7 @@ index_recovery_mode: 'AUTO'
 # solr
 solr_host: 'localhost'
 solr_port: '8080'
+
+# apache manifoldcf
+manifoldcf_version: '2.0'
+

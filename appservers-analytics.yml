@@ -1,7 +1,12 @@
 ---
 # file: appservers-analytics.yml
 - hosts: appservers-analytics
+  remote_user: rkarna
+  sudo: yes
   roles:
     - common
-    - webtier
-    - apptier
+    - java
+    - { role: geerlingguy.nginx }
+    - { role: geerlingguy.kibana }
+    - { role: geerlingguy.elasticsearch }
+    - manifoldcf
