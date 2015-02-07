@@ -1,9 +1,12 @@
 ---
 # file: appservers-monitoring.yml
 - hosts: appservers-monitoring
+  remote_user: rkarna
+  sudo: yes
   roles:
     - common
     - java
+    - { role: geerlingguy.nginx }
     - { role: geerlingguy.kibana }
     - { role: geerlingguy.logstash }
 

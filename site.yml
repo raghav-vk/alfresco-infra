@@ -4,5 +4,5 @@
 - include: appservers.yml
 - include: webservers.yml
 - include: appservers-analytics.yml
-#- include: appservers-monitoring.yml
+- include: appservers-monitoring.yml
 - include: appservers-services.yml

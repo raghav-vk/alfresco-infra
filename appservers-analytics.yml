@@ -10,3 +10,4 @@
     - { role: geerlingguy.kibana }
     - { role: geerlingguy.elasticsearch }
     - manifoldcf
+    - { role: geerlingguy.logstash-forwarder }

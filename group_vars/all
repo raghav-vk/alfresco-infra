@@ -60,3 +60,44 @@ solr_port: '8080'
 # apache manifoldcf
 manifoldcf_version: '2.0'
 
+# file: group_vars/all
+logstash_forwarder_logstash_server: 10.128.108.12
+logstash_forwarder_logstash_server_port: 5000
+
+logstash_ssl_dir: /etc/pki/logstash
+logstash_forwarder_ssl_certificate_file: logstash-forwarder-example.crt
+
+# file: group_vars/webservers
+logstash_forwarder_files:
+  - paths:
+      - /etc/httpd/logs/access_log
+      - /etc/httpd/logs/error_log
+    fields:
+      type: syslog
+
+# file: group_vars/appservers
+logstash_forwarder_files:
+  - paths:
+      - /opt/alfresco/tomcat/logs/catalina.out
+      - /opt/alfresco/share.log
+      - /opt/alfresco/alfresco.log
+      - /opt/alfresco/solr.log
+    fields:
+      type: syslog
+
+# file: group_vars/appservers-services
+logstash_forwarder_files:
+  - paths:
+      - /opt/apache-tomcat-8.0.15/logs/catalina.out
+    fields:
+      type: syslog
+
+# file: group_vars/dataservers
+logstash_forwarder_files:
+
+  - paths:
+      - /var/log/mysqld.log
+      - /var/log/mysqld-slow.log
+    fields:
+      type: syslog
+

@@ -1,0 +1,86 @@
+# file: production
+
+[ashburn-webservers]
+10.128.176.58   #dpp_ash_apache
+
+[nbp3-webservers]
+10.128.108.58   #dpp_nbp_apache
+
+[ashburn-dbservers]
+10.128.176.74   #dpp_ash_db
+
+[nbp3-dbservers]
+10.128.108.74   #dpp_nbp_db
+
+[ashburn-appservers]
+10.128.176.66   #dpp_ash_rep
+
+[nbp3-appservers]
+10.128.108.66   #dpp_nbp_rep
+
+[ashburn-esservers]
+10.128.176.67   #dpp_ash_es
+
+[nbp3-esservers]
+10.128.108.67   #dpp_nbp_es
+
+[ashburn-lsservers]
+10.128.176.68   #dpp_ash_ls
+
+[nbp3-lsservers]
+10.128.108.68   #dpp_nbp_ls
+
+[ashburn-srvcservers]
+10.128.176.69   #dpp_ash_srvcs
+
+[nbp3-srvcsservers]
+10.128.108.69   #dpp_nbp_srvcs
+
+# webservers in all geos
+[webservers:children]
+ashburn-webservers
+nbp3-webservers
+
+# dbservers in all geos
+[dbservers:children]
+ashburn-dbservers
+nbp3-dbservers
+
+# appservers in all geos
+[appservers:children]
+ashburn-appservers
+nbp3-appservers
+
+# esservers in all geos
+[esservers:children]
+ashburn-esservers
+nbp3-esservers
+
+# lsservers in all geos
+[lsservers:children]
+ashburn-lsservers
+nbp3-lsservers
+
+# servers in all geos
+[srvcsservers:children]
+ashburn-srvcsservers
+nbp3-srvcsservers
+
+# everything in the ashburn geo
+[ashburn:children]
+ashburn-webservers
+ashburn-dbservers
+ashburn-appservers
+ashburn-esservers
+ashburn-lsservers
+ashburn-srvcservers
+
+# everything in the nbp3 geo
+[nbp3:children]
+nbp3-webservers
+nbp3-dbservers
+nbp3-appservers
+nbp3-esservers
+nbp3-lsservers
+nbp3-srvcsservers
+
