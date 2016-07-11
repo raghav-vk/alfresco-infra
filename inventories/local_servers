@@ -1,22 +1,16 @@
 # file: dev
 
 [webservers]
-10.128.108.2	#dpp-dev-web	
 
 [appservers]
-10.128.108.11	#dpp-dev-rep-1	 
 
 [appservers-analytics]
-10.128.108.10	#dpp-dev-elastic
 
 [appservers-monitoring]
-10.128.108.12	#dpp-dev-ls-1	
 
 [appservers-services]
-10.128.108.13	#dpp-dev-tools-1	
 
 [dataservers]
-10.128.108.18	#dpp-dev-db
 
 # webservers in all geos
 [webservers:children]
